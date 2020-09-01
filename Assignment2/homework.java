@@ -364,23 +364,18 @@ class Board {
                 for(int m=0;m<moves.size();m++){
                     int ex = moves.get(m).getTo().getX();
                     int ey = moves.get(m).getTo().getY();
-                    //System.out.println("excuse me color is " + color);
-                    //System.out.println("excuse me x is  " + ex + " and y is " + ey);
+                    
                     if(checkLocation(ex,ey,color)==0){
-                        //System.out.println("From (x,y): (" + moves.get(m).getFrom().getX() + "," + moves.get(m).getFrom().getY() + "), To (x,y): (" + moves.get(m).getTo().getX() + "," + moves.get(m).getTo().getY() + ") ," + moves.get(m).geteval()+ " ");
-                        //System.out.println("Path is ");
+                        
                         for(j=0;j<moves.get(m).getPar().size();j++) {
-                            //System.out.print(moves.get(m).getPar().get(j).getX() + "  " + moves.get(m).getPar().get(j).getY() + "  ");
                             if(moves.get(m).getPar().get(j).getX()==moves.get(m).getTo().getX() && moves.get(m).getPar().get(j).getY()==moves.get(m).getTo().getY()) {
                                 break;
                             }
                         }
                         for(int l = moves.get(m).getPar().size() - 1; l > j; l--)
                             moves.get(m).getPar().remove(l);
-                        //System.out.println("ABHI");
                         
                         ArrayList<Coord> actPath = new ArrayList<Coord>();
-                        //for(j=moves.get(m).getPar().size()-1;j>=0;j--) {
                         j = moves.get(m).getPar().size()-1;
                         actPath.add(new Coord(moves.get(m).getPar().get(j).getX(),moves.get(m).getPar().get(j).getY()));
                         int temp = m;
@@ -390,12 +385,10 @@ class Board {
                                     m--;
                                 }
                                 actPath.add(new Coord(moves.get(m-1).getTo().getX(),moves.get(m-1).getTo().getY()));
-                                //System.out.println("abey m ka value is " + m);
                                 temp = m-1;
                                 m--;
                             }while(m>=1);
                             actPath.add(new Coord(moves.get(0).getFrom().getX(),moves.get(0).getFrom().getY()));
-                            //System.out.println("me is the best");
                         }
                         else{
                             actPath.add(new Coord(moves.get(m).getFrom().getX(),moves.get(m).getFrom().getY()));
@@ -408,7 +401,6 @@ class Board {
                             //Board.usingBufferedWritter("J",x,y,endx,endy); 
                             int from1, from2, to1, to2;                   
                             String fileContent;
-                            //System.out.println("print kyum nahi ho raha bey");
                             BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
                             for(int k=actPath.size()-1;k>1;k--){
                                 from1 = actPath.get(k).getY();
@@ -440,13 +432,11 @@ class Board {
 
 
         
-        //tried all positions for all coins inside camp. nahi hua. now for pieces in camp, try to move further away
         for(int i=0;i<countIn;i++) {
             x = reserveInCamp[i].getX();
             y = reserveInCamp[i].getY();
             c = reserveInCamp[i].getPos();
 
-            //System.out.println("c ka value" + c);
 
             if(c==1) {
                 if((x+1)<16 && (y)<16 && (x+1)>=0 && y>=0 && (board.cells[x+1][y].getPos()==0) && checkLocation(x+1,y,color)==1) {
@@ -624,8 +614,6 @@ class Board {
             if(type!="F") {
                 cells[x][y].setCell(x,y,0);
                 cells[endx][endy].setCell(endx,endy,c);
-                //System.out.println("found in reserveOutCamp");
-                //System.out.print("for x as "+x+" and y as "+y+" i found end x as " + endx+ " and end y as "+endy);
                 try{
                     Board.usingBufferedWritter(type,x,y,endx,endy); 
                 }
@@ -730,8 +718,6 @@ class Board {
             if(type!="F") {
                 cells[x][y].setCell(x,y,0);
                 cells[endx][endy].setCell(endx,endy,c);
-                //System.out.println("found opposing camp to opposing camp");
-                //System.out.print("for x as "+x+" and y as "+y+" i found end x as " + endx+ " and end y as "+endy);
                 try{
                     Board.usingBufferedWritter(type,x,y,endx,endy); 
                 }
