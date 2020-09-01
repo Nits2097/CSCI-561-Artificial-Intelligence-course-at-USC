@@ -19,49 +19,27 @@ def main():
     for i in range(noOfFacts):
     	t = data[noOfQueries + 2 + i].rstrip()
     	fact.append(t)
-    #print("FACTS")
-    #print(fact)
-    #print("QUERY")
-    #print(query)
-    #can query contain multiple predicates or not
+   
     for i in fact:
     	convertToCNF(i)
-    print("YEH HAI clauses")
-    print(clauses)
     for i in query:
     	output = transformQuery(i)
-    	print("output")
     	writeOutput(output)
-    #break
-    #removeExtraClauses() 
-    #print("YEH HAI KB")
-    #print(kb)
-    #standardizeKB()
+ 
 
 
 def resolvekb(query):
-	print("CALLED AGAIN WITH QUERY AS")
-	print(query)
 
 	flag=0
 	count=0
 	remove=0
 	resolvent=[]
-	#print(query)
 	for a in query:
 		yoohoo=0
-		print("ITERATIONNNNNN")
-		print(count)
-		print(a)
 		for k in clauses:
-			print("idhar aaya")
-			print(k)
 			for l in k:
 				yoohoo=0
-				print("VALUE OF L")
-				print(l)
 				if(a!=k and l[0]==a[0] and not l[1]==a[1]):
-					print("ab unify karo inko")
 					flag,resolvent = unify([a],k)
 					if(flag):
 						yoohoo=1
@@ -71,42 +49,13 @@ def resolvekb(query):
 							if(not val):
 								return False
 							flag=1
-						#break
 
-			#if(remove==1):
-			#	break
-			#if(flag):
-			#	break
-			# if(not resolvent and flag):
-		  	#count=count+1
-		 	#continue
+			
 		if(yoohoo==0):
-
-			print("YEH QUERY KA KUCH NAHI HUA")
 			return False
-		#if(k==len(clauses)):
-		#	return False
-		# if(flag):
-		#  	if(not resolvent):
-		#  		count=count+1
-		#  	continue
-		#if(not resolvent and flag):
-		 	#count=count+1
-		 	#continue
+		
 	return True
-	# print("done.done.")
-	# if(yoohoo==1):
-	# 	#print("okay.")
-	# 	return True
-	# else:
-	# 	#print("not okay.")
-	# 	return False
-	#if(count==len(query)):
-	#	print("trueeeee hua resolve")
-	#	return True
-	#else:
-	#	print("FALSEEEEEEEEEEEE NAHI HUA RESOLVE")
-	#return True
+	
 			
 def writeOutput(output):
 	name = "output.txt"
@@ -116,11 +65,7 @@ def writeOutput(output):
 	
 
 def unify(ca,cb):
-	print("unifying")
-	print("CA")
-	print(ca)
-	print("CB")
-	print(cb)
+	
 	temp1 = copy.deepcopy(ca)
 	temp2 = copy.deepcopy(cb)
 	fin=[]
@@ -130,15 +75,11 @@ def unify(ca,cb):
 		for k in range(len(cb)):
 			if(ca[i][0]==cb[k][0] and ca[i][1]!=cb[k][1]):
 				flag,subs = unifyVar(subs,cb[k][2],ca[i][2])
-				print("aya")
-				#print(flag,subs)
 				if(flag):
 					break
 		if(flag):
 			break
 	if(flag):
-		print("byeeeeeeeeeeeeeeeeeeeeyb")
-		print(subs)
 		for i in range(len(temp1)):
 			for j in range(len(temp1[i][2])):
 				if(temp1[i][2][j] in subs):
@@ -159,16 +100,11 @@ def unify(ca,cb):
 				temp2[i][1] = int(not temp2[i][1])
 		if(fin):
 			clauses.append(fin)
-		print("FIN KA VALUEEEEEE")
-		print(fin)
-		print("clauses ab after unify")
-		print(clauses)
+		
 		return 1,fin
 	return 0,fin
 
 def unifyVar(subs,arg1,arg2):
-	#subs={}
-	print(subs)
 	for i in range(len(arg1)):
 		if(arg1[i][0].islower() and arg2[i][0].isupper()):
 			if arg1[i][0] not in subs:
@@ -200,21 +136,16 @@ def unifyVar(subs,arg1,arg2):
 
 
 def transformQuery(fact):
-	# assumed query is a single predicate
-	# what if its multiple predicate?
+	
 	if(fact[0]=="~"):
 		fact = fact[1:]
 	else:
 		fact = "~" + fact
-	# print(fact)
-	# print("fact getting appended")
 	kb.append(fact)
 	tup = makeClauses(fact)
 	clauses.insert(0,[tup])
 	standardizeKB()
 	fin = resolvekb([tup])
-	print("done done done done")
-	print(fin)
 	return fin
 
 def storePredicates(fact):
@@ -229,8 +160,7 @@ def storePredicates(fact):
 		fact = fact[:bracSt]
 	args= []
 	commaInd = brac.find(",")
-	# will we store 4th argument as others with the predicat in the kb?
-	# also how, if we have aVb, ~avbv~d, 
+	
 
 def makeClauses(fact):
 	args=[]
@@ -298,7 +228,6 @@ def standardizeKB():
 				#print(dict)
 				temp = clauses[i][j][2][arg]
 				if(temp[0].islower() and not temp in dict):
-					#print("idhar aaye okay!")
 					if(ind<=25):
 						dict[temp] = s[ind]
 						clauses[i][j][2][arg] = s[ind]
@@ -315,8 +244,6 @@ def standardizeKB():
 						ind=ind+1
 				elif(temp in dict):
 					clauses[i][j][2][arg] = dict[temp]
-	print("clauses ab")
-	print(clauses)
 
     
 if __name__ == '__main__':
