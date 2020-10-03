@@ -1,4 +1,4 @@
-# CSCI-561-Artificial-Intelligence-course-at-USC
+# CSCI-561-Artificial-Intelligence-course-at-USC - CSCI 561
 All the assignments covered as part of the course CSCI 561: Foundations of Artificial Intelligence by Prof. Laurent Itti at USC
 
 The 3 assignments comprehensively covered various topics of Aritificial Intelligence. Given below is a brief description of each of the assignments.
@@ -23,3 +23,5 @@ Implemented a First Order Logic Resolution engine for sentences in CNF form. Thi
 Algorithms implemeted: Unification, Resolution
 
 Language: Python
+
+#### This course was followed and implemented in Fall 2019 at University of Southern California
